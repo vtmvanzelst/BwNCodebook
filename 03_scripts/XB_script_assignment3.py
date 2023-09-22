@@ -19,9 +19,11 @@ from pylab import plot, show, savefig, xlim, figure, ylim, legend, boxplot, setp
 import shutil
 import subprocess
 import xarray as xr
-# import subprocess  # only needed if you would like to start the simulations via a python script. 
+import sys
 
 
+# local funcs
+from support_funcs.XB_func import XB_plot_val, XB_plot_dif_val, XBparams_sb, XB_load_results, write_xb_hydrodynamics
 
 def to_pickle(fn_pickle, df):
 	file = open(fn_pickle,'wb')
@@ -39,113 +41,13 @@ def check_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-
-def XB_load_results(dir_nc, vegopt = True):
-    ds     = xr.open_dataset(dir_nc)
-    
-    x       = ds['globalx'].values.squeeze()  # xcoords
-    zb      = ds['zb_mean'].values.squeeze()  # bed level
-    zs      = ds['zs_mean'].values.squeeze()  # water level
-    zsvar   = ds['zs_var'].values.squeeze()   # water level variance
-    Hrms_IG = 2*np.sqrt(2)*np.sqrt(abs(zsvar)) 
-    
-    Hrms   = ds['H_mean'].values.squeeze()   # rms wave height
-    if vegopt == True:
-        veg    = ds['vegtype'].values.squeeze()[0,:]  # vegtype
-    
-    zs_grid = np.zeros_like(zb)
-    zs_grid[:] = zs
-    
-    df_results = pd.DataFrame.from_dict({'x':x,
-                                         'bed':zb,
-                                         'wl':zs_grid,
-                                         'hrms': Hrms,
-                                         'hrms_ig':Hrms_IG})
-    if vegopt == True:
-        df_results['veg'] = veg
-    
-    # clip results once levee is reached
-    if (df_results['wl']<=df_results['bed']).sum() >0:
-        first_idx  = df_results[df_results['wl']<=df_results['bed']].index[0]
-        df_results = df_results.iloc[0:first_idx+1,:]
-
-    return df_results
-
-def XB_plot_val(df, var = 'hrms', vegopt = True):
-    fig, ax = plt.subplots()
-    
-    ax.plot(df.x, df.bed, color = 'saddlebrown')  # bed
-    ax.plot(df.x, df[var], color = 'dodgerblue')
-
-    if vegopt == True:
-        ax.plot(df.x.loc[df.veg==1], df.bed.loc[df.veg==1], color = 'limegreen')
-        # add vertical line
-        ax.axvline(df.x.loc[df.x.loc[df.veg==1].index[0]], color = 'limegreen', alpha = 0.5, ls = '--', lw = 0.5)
-        ax.axvline(df.x.loc[df.x.loc[df.veg==1].index[-1]], color = 'limegreen', alpha = 0.5, ls = '--', lw = 0.5)
-        
-    ax.spines[['right', 'top']].set_visible(False)
-
-    # ax.set_ylabel()
-    # ax.set_xlabel()
-
-
-def XBparams_sb(XB_templatefiledir,XB_outputfiledir, nxb, zs0):                                     #maken van param file for surfbeat [vvz]
-    XBloadpathin= os.path.join(XB_templatefiledir, 'paramssb_0.txt');
-    XBloadpathout= os.path.join(XB_outputfiledir, 'params.txt');
-    fin = open(XBloadpathin, 'r')
-    fout = open(XBloadpathout, 'w')
-    endno = {}
-    end = 0
-    for i,line in enumerate(fin):
-        end += len(line)
-        endno[end] = i   
-    fin.close()
-    fin = open(XBloadpathin, 'r')
-    for i in np.arange(endno[end]+1):
-        line=fin.readline()
-        print (line)
-        if i==17:
-            fout.write('nx           = ' + str(nxb) + '\n')
-        elif i==35:
-            fout.write('zs0          = ' + str(zs0) + '\n')
-        else:             
-            fout.write(line)
-    fin.close()
-    fout.close()
-
-def XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp):                                        #maken van param file Jonswap spectrum
-    XBloadpathin= os.path.join(XB_templatefiledir, 'jonswap_0.txt');
-    XBloadpathout= os.path.join(XB_outputfiledir, 'jonswap.txt');
-    fin = open(XBloadpathin, 'r')
-    fout = open(XBloadpathout, 'w')
-    endno = {}
-    end = 0
-    for i,line in enumerate(fin):
-        end += len(line)
-        endno[end] = i   
-    fin.close()
-    fin = open(XBloadpathin, 'r')
-    for i in np.arange(endno[end]+1):
-        line=fin.readline()
-        print (line)
-        if i==0:
-            fout.write('Hm0        =  ' + str(Hm0) + '\n')
-        elif i==1:
-            fout.write('fp         =  ' + str(fp) + '\n')
-        else:             
-            fout.write(line)
-    fin.close()
-    fout.close()
-
-def write_xb_hydrodynamics(xgrid, main_dir, wd, zs0, Hm0, fp):
-    nxb = len(xgrid)-1 # number of xgrid cells
-    XB_templatefiledir = join(main_dir,'02_XB_sims/00_dummy_input_xbfiles')
-    XB_outputfiledir   = wd
-    
-    # write params file
-    XBparams_sb(XB_templatefiledir,XB_outputfiledir, nxb, zs0)
-    # write wave related input
-    XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp)
+def check_dir_plot(directory):
+    if not os.path.exists(directory):
+        print('ERROR: output is not avilable in the provided folder..')
+        opt = False, 
+    else:
+        opt = True
+    return opt
 
 
 
@@ -184,24 +86,37 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
      ------------
      """
     
-    # working directory and create folder if not exist
+    # directories
     wd       = join(main_dir, '02_XB_sims/' + simulation_name)
-    check_dir(wd)
+    dir_noveg = join(wd,'noveg'); 
+    dir_veg   = join(wd,'veg'); 
+    dirs      = [dir_noveg, dir_veg]
 
-    if opt_prepare_and_run_xb == True:    
+
+    if opt_prepare_and_run_xb == True:   
+        # in the working directory we create two folders (veg and noveg)
+        check_dir(wd);check_dir(dir_noveg);check_dir(dir_veg)
         # load pickle file for selected transect. The file contains bed level information, and information on vegetation extent
         df_transect = from_pickle(join(main_dir, '01_transects' + '/transect_' + str(selected_transect)) + '.pkl')
         
         #     Write grid and depth to XBeach text files
-        xgrid  = df_transect.dist_total.values; np.savetxt(join(wd,'xgrid.grd'), xgrid)
-        dep    = df_transect.elevation.values; np.savetxt(join(wd,'bed.dep'), dep)
+        for wd_sel in dirs:
+            xgrid  = df_transect.dist_total.values; np.savetxt(join(wd_sel,'xgrid.grd'), xgrid)
+            dep    = df_transect.elevation.values; np.savetxt(join(wd_sel,'bed.dep'), dep)
+        
+            # hydrodynamics
+            write_xb_hydrodynamics(xgrid, main_dir, wd_sel, zs0, Hm0, fp)
+        
         
         #writing vegetation presence to XBeach text file
+        # veg
         df_transect.vegetation.loc[df_transect.vegetation == -1] = 0
-        np.savetxt(join(wd,'vegpatch.txt'), df_transect.vegetation.values)
+        np.savetxt(join(dir_veg,'vegpatch.txt'), df_transect.vegetation.values)
       
-        # hydrodynamics
-        write_xb_hydrodynamics(xgrid, main_dir, wd, zs0, Hm0, fp)
+        # noveg
+        df_transect['noveg'] = 0
+        np.savetxt(join(dir_noveg,'vegpatch.txt'), df_transect.noveg.values)
+
       
         # -- B.  Vegetation in XBeach 
         #    The XBeach vegetation module requires different veg input (files):    
@@ -213,25 +128,32 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
         #     For detailed information visit: https://xbeach.readthedocs.io/en/latest/xbeach_manual.html#vegetation-input
 
         # copy veggiefile and vegtype_dummy to working dir
-        shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/veggiefile.txt'),join(wd,'veggiefile.txt'))
-        shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/vegtype_dummy.txt'),join(wd,'vegtype_dummy.txt'))
+        for wd_sel in dirs:
+            shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/veggiefile.txt'),join(wd_sel,'veggiefile.txt'))
+            shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/vegtype_dummy.txt'),join(wd_sel,'vegtype_dummy.txt'))
         # Manually make change to these files to provide the model with your own vegetation parameterization!  
       
         
       
         # execute simulation
-        fn_bat = join(wd,'run_xb.bat')
-        shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),fn_bat)             # copy bat file to simulation folder
-        subprocess.run(fn_bat, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)     # Start the XB simulation by running: 'run_xb.bat'
-      
+        for wd_sel in dirs:
+            shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),join(wd_sel,'run_xb.bat'))             # copy bat file to simulation folder
+        subprocess.run(join(dir_veg,'run_xb.bat'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)     # Start the XB simulation by running: 'run_xb.bat'
+        subprocess.run(join(dir_noveg,'run_xb.bat'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) 
         
   
     if opt_postprocessing == True:
-        dir_nc     = join(wd,'xboutput.nc')
-        df_results = XB_load_results(dir_nc, vegopt = True)
+        opt = check_dir_plot(join(dir_veg, 'xboutput.nc'))
         
-        # plotting (simple function to get you started..)
-        XB_plot_val(df_results)
+        if opt == True:        
+            df_results_veg   = XB_load_results(join(dir_veg,'xboutput.nc'), vegopt = True)
+            df_results_noveg = XB_load_results(join(dir_noveg,'xboutput.nc'), vegopt = False)
+        
+            # plotting (simple function to get you started..)
+            XB_plot_val(df_results_veg, vegopt = True)
+            XB_plot_val(df_results_noveg, vegopt = False)
+            XB_plot_dif_val(df_results_veg, df_results_noveg, save_path = join(wd, 'veg_versus_noveg.png'))
+            
     
 #%%
     
@@ -253,10 +175,10 @@ if __name__ == '__main__':
     fp                   = 1/4.5      # peak frequency (= 1 / Tp)
     
     # options to run and/or postprocess
-    opt_prepare_and_run_xb = True
+    opt_prepare_and_run_xb = False
     opt_postprocessing     = True
     # =========================================================================
-    
+    # END USER INPUT
     
     
     # no changes required below
