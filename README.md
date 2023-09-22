@@ -113,8 +113,8 @@ Extract the files into `..\GitHub\BwNCodebook\00_XB_software\`
 
 ## Python scripts
 The folder **03_scripts** contains two scripts:
-1.  XB_script_assignment3.py  (contains the main function execute support functions to  setup, run and postprocess simulations)
-2.  support_funcs.XB_func.py  (support functions)
+1.  `XB_script_assignment3.py`  (contains the main function execute support functions to  setup, run and postprocess simulations)
+2.  `support_funcs.XB_func.py`  (support functions)
 
 
 
