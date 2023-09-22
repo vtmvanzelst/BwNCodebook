@@ -137,10 +137,16 @@ def XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp):                     
     fin.close()
     fout.close()
 
+def write_xb_hydrodynamics(xgrid, main_dir, wd, zs0, Hm0, fp):
+    nxb = len(xgrid)-1 # number of xgrid cells
+    XB_templatefiledir = join(main_dir,'02_XB_sims/00_dummy_input_xbfiles')
+    XB_outputfiledir   = wd
+    
+    # write params file
+    XBparams_sb(XB_templatefiledir,XB_outputfiledir, nxb, zs0)
+    # write wave related input
+    XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp)
 
-
-
-#%%
 
 
 def main(main_dir:str          = 'path\to\BwNCodebook',
@@ -148,7 +154,9 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
          selected_transect:int = 1,
          zs0: float            = 3.5,
          Hm0:float             = 1.25,
-         fp:float              = 1/4.5):
+         fp:float              = 1/4.5,
+         opt_prepare_and_run_xb= True,
+         opt_postprocessing    = True):
     
     """
      Description:
@@ -180,31 +188,58 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
     wd       = join(main_dir, '02_XB_sims/' + simulation_name)
     check_dir(wd)
 
-    # load pickle file for selected transect. The file contains bed level information
-    df_transect = from_pickle(join(main_dir, '01_transects' + '/transect_' + str(selected_transect)) + '.pkl')
-    
-    #     Write grid and depth to XBeach text files
-    xgrid  = df_transect.dist_total.values; np.savetxt(join(wd,'xgrid.grd'), xgrid)
-    dep    = df_transect.elevation.values; np.savetxt(join(wd,'bed.dep'), dep)
-    
+    if opt_prepare_and_run_xb == True:    
+        # load pickle file for selected transect. The file contains bed level information, and information on vegetation extent
+        df_transect = from_pickle(join(main_dir, '01_transects' + '/transect_' + str(selected_transect)) + '.pkl')
+        
+        #     Write grid and depth to XBeach text files
+        xgrid  = df_transect.dist_total.values; np.savetxt(join(wd,'xgrid.grd'), xgrid)
+        dep    = df_transect.elevation.values; np.savetxt(join(wd,'bed.dep'), dep)
+        
+        #writing vegetation presence to XBeach text file
+        df_transect.vegetation.loc[df_transect.vegetation == -1] = 0
+        np.savetxt(join(wd,'vegpatch.txt'), df_transect.vegetation.values)
+      
+        # hydrodynamics
+        write_xb_hydrodynamics(xgrid, main_dir, wd, zs0, Hm0, fp)
+      
+        # -- B.  Vegetation in XBeach 
+        #    The XBeach vegetation module requires different veg input (files):    
+        #        1. the veggiemap file -> indicates where vegetation is present in the computational domain(0 = no veg, 1 = vegtype1, 2 = vegtype2, ..n)
+        #        2. the veggie file    -> indicates where WHAT type of vegetation is present by providing the vegtype.txt files that corresponds to the integers provided in the veggiepatch file. 
+        #        3. the vegtypes file(s) -> indicate the vegetation schematization. (nsec = vertical layer nr, N = density, d = representative diamter, h = height, Cd = drag coef.)
+        #        4. 'vegetation' = 1 keyword in the params file (set vegetation = 0 to turn off the vegetation module)
+        #
+        #     For detailed information visit: https://xbeach.readthedocs.io/en/latest/xbeach_manual.html#vegetation-input
+
+        # copy veggiefile and vegtype_dummy to working dir
+        shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/veggiefile.txt'),join(wd,'veggiefile.txt'))
+        shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/vegtype_dummy.txt'),join(wd,'vegtype_dummy.txt'))
+        # Manually make change to these files to provide the model with your own vegetation parameterization!  
+      
+        
+      
+        # execute simulation
+        fn_bat = join(wd,'run_xb.bat')
+        shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),fn_bat)             # copy bat file to simulation folder
+        subprocess.run(fn_bat, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)     # Start the XB simulation by running: 'run_xb.bat'
+      
+        
   
+    if opt_postprocessing == True:
+        dir_nc     = join(wd,'xboutput.nc')
+        df_results = XB_load_results(dir_nc, vegopt = True)
+        
+        # plotting (simple function to get you started..)
+        XB_plot_val(df_results)
     
-  
+#%%
     
-  
     
 if __name__ == '__main__':
-    main(main_dir          = main_dir, 
-         simulation_name   = simulation_name, 
-         selected_transect = selected_transect,
-         zs0               = waterlevel,
-         Hm0               = Hm0,
-         fp                = fp
-         )
-    
-  
-    
-    # USER INPUT BELOW
+
+    # USER INPUT 
+    # =========================================================================
     # directory input
     main_dir             = r'c:\Users\zelst\OneDrive - Stichting Deltares\Documents\GitHub\BwNCodebook'
     simulation_name      = 'test01'
@@ -217,81 +252,30 @@ if __name__ == '__main__':
     Hm0                  = 1.25       # significant wave height
     fp                   = 1/4.5      # peak frequency (= 1 / Tp)
     
+    # options to run and/or postprocess
+    opt_prepare_and_run_xb = True
+    opt_postprocessing     = True
+    # =========================================================================
     
-
-
-
-
-
-#=============================================================================
-# 2. Create input for XBeach
-#_____________________________________________________________________________
-# -- A. grid and topography
-
-
-#_____________________________________________________________________________
-# -- B.  Vegetation in XBeach 
-#    The XBeach vegetation module requires different veg input (files):    
-#        1. the veggiemap file -> indicates where vegetation is present in the computational domain(0 = no veg, 1 = vegtype1, 2 = vegtype2, ..n)
-#        2. the veggie file    -> indicates where WHAT type of vegetation is present by providing the vegtype.txt files that corresponds to the integers provided in the veggiepatch file. 
-#        3. the vegtypes file(s) -> indicate the vegetation schematization. (nsec = vertical layer nr, N = density, d = representative diamter, h = height, Cd = drag coef.)
-#        4. 'vegetation' = 1 keyword in the params file (set vegetation = 0 to turn off the vegetation module)
-#
-#     For detailed information visit: https://xbeach.readthedocs.io/en/latest/xbeach_manual.html#vegetation-input
-
-# Example of writing vegetation presence to XBeach text file
-df_transect.vegetation.loc[df_transect.vegetation == -1] = 0
-np.savetxt(join(wd,'vegpatch.txt'), df_transect.vegetation.values)
     
-
-# copy veggiefile and vegtype_dummy to working dir
-shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/veggiefile.txt'),join(wd,'veggiefile.txt'))
-shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/vegtype_dummy.txt'),join(wd,'vegtype_dummy.txt'))
-# Manually make change to these files to provide the model with your own vegetation parameterization!
-
-
-#_____________________________________________________________________________
-# -- C. Hydrodynamic boundary conditions
-# define input and output dir locations
-nxb = len(xgrid)-1 # number of xgrid cells
-XB_templatefiledir = join(main_dir,'02_XB_sims/00_dummy_input_xbfiles')
-XB_outputfiledir   = wd
-
-# write params file
-XBparams_sb(XB_templatefiledir,XB_outputfiledir, nxb, zs0)
-# write wave related input
-XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp)
+    
+    # no changes required below
+    main(main_dir          = main_dir, 
+         simulation_name   = simulation_name, 
+         selected_transect = selected_transect,
+         zs0               = zs0,
+         Hm0               = Hm0,
+         fp                = fp,
+         opt_prepare_and_run_xb = opt_prepare_and_run_xb,
+         opt_postprocessing     = opt_postprocessing)
 
 
 
 
-#=============================================================================
-# 3. Start simulation
-# copy bat file to simulation folder
-fn_bat = join(wd,'run_xb.bat')
-shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),fn_bat)
-
-
-#%%
-# Start the XB simulation by running: 'run_xb.bat'
-log_xbeach = subprocess.run(fn_bat, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 
 
 
-#%%
-
-#=============================================================================
-# 4. Load results
-dir_nc     = join(wd,'xboutput.nc')
-df_results = XB_load_results(dir_nc, vegopt = True)
-
-
-
-#=============================================================================
-# 5. Post-processing
-# simple function to get you started..
-XB_plot_val(df_results)
 
 
 
