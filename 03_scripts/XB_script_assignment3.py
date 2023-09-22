@@ -142,25 +142,83 @@ def XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp):                     
 
 #%%
 
-#=============================================================================
-# 0. Create working dir, select a trnsect and provide hydro input.
-# main_dir = r'ENTER-HERE-THE-PATH-TO-THE-FOLDER\Assignment_3_material'
-main_dir = r'c:\Users\zelst\OneDrive - Stichting Deltares\Documents\GitHub\BwNCodebook'
-wd       = join(main_dir,r'02_XB_sims\01_dummy_t1')
-check_dir(wd)
 
-t_select = 1 # 1,2,3
-# hydrodynamic bnd input
-zs0 = 3.5        # design storm water level in meters (vertical reference frame according to the *.dep-file)
-Hm0 = 1.25       # significant wave height
-fp  = 1/4.5      # peak frequency (= 1 / Tp)
+def main(main_dir:str          = 'path\to\BwNCodebook',
+         simulation_name:str   = 'name',
+         selected_transect:int = 1,
+         zs0: float            = 3.5,
+         Hm0:float             = 1.25,
+         fp:float              = 1/4.5):
+    
+    """
+     Description:
+     ------------
+     This function loads data and writes XBeach input data to file for one of the three provided transects
+    
+     Parameters:
+     ------------
+     main_dir: String
+         directory of the BwNCodeBook checkout
+     simulation_name : String
+         user defined name of the simulation (a folder will be created if not exist)
+     selected_transect: Integer
+         number of the transect
+     
+     zs0 : Float
+         design storm water level in meters (vertical reference frame according to the *.dep-file)
+     Hm0: integer
+         significant wave height
+    
+     fp: Float
+         peak frequency (= 1 / Tp)
+    
+     Returns:
+     ------------
+     """
+    
+    # working directory and create folder if not exist
+    wd       = join(main_dir, '02_XB_sims/' + simulation_name)
+    check_dir(wd)
 
+    # load pickle file for selected transect. The file contains bed level information
+    df_transect = from_pickle(join(main_dir, '01_transects' + '/transect_' + str(selected_transect)) + '.pkl')
+    
+    #     Write grid and depth to XBeach text files
+    xgrid  = df_transect.dist_total.values; np.savetxt(join(wd,'xgrid.grd'), xgrid)
+    dep    = df_transect.elevation.values; np.savetxt(join(wd,'bed.dep'), dep)
+    
+  
+    
+  
+    
+  
+    
+if __name__ == '__main__':
+    main(main_dir          = main_dir, 
+         simulation_name   = simulation_name, 
+         selected_transect = selected_transect,
+         zs0               = waterlevel,
+         Hm0               = Hm0,
+         fp                = fp
+         )
+    
+  
+    
+    # USER INPUT BELOW
+    # directory input
+    main_dir             = r'c:\Users\zelst\OneDrive - Stichting Deltares\Documents\GitHub\BwNCodebook'
+    simulation_name      = 'test01'
+    
+    # transect (1,2 or 3)
+    selected_transect    = 1
+    
+    # hydrodynamic input
+    zs0                  = 3.5        # design storm water level in meters (vertical reference frame according to the *.dep-file)
+    Hm0                  = 1.25       # significant wave height
+    fp                   = 1/4.5      # peak frequency (= 1 / Tp)
+    
+    
 
-
-
-#=============================================================================
-# 1. Select a transect and load corresponding topography and vegetation data (current climate)
-df_transect = from_pickle(join(main_dir, '01_transects' + '/transect_' + str(t_select)) + '.pkl')
 
 
 
@@ -169,9 +227,7 @@ df_transect = from_pickle(join(main_dir, '01_transects' + '/transect_' + str(t_s
 # 2. Create input for XBeach
 #_____________________________________________________________________________
 # -- A. grid and topography
-#     Write grid and depth to XBeach text files
-xgrid  = df_transect.dist_total.values; np.savetxt(join(wd,'xgrid.grd'), xgrid)
-dep    = df_transect.elevation.values; np.savetxt(join(wd,'bed.dep'), dep)
+
 
 #_____________________________________________________________________________
 # -- B.  Vegetation in XBeach 
