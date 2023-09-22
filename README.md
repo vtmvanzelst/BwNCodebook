@@ -24,6 +24,7 @@ XBeach is a two-dimensional model for wave propagation, long waves and mean flow
 It includes a vegetation module that solves short-wave and long-wave -vegetation interaction (Van Rooijen et al., 2015; Van Rooijen et al., 2016). 
 
 XBeach software can be downloaded at: 	(https://download.deltares.nl/xbeach)
+
 XBeach manual:				(https://xbeach.readthedocs.io/en/latest/xbeach_manual.html)
 
 
