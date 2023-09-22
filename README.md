@@ -84,9 +84,9 @@ environments.
 4. The BwNCodebook root directory contains a yaml file:, (that describe the software
    dependencies). 
 
-   ```
+   
    Create the BwN environment by running: 
-   ``` 
+   ```bash 
    mamba env create -f environment-coastal.yml
    ``` 
    If you want to give other names to
