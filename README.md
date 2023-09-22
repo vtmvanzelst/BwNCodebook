@@ -17,14 +17,14 @@ Below we provide instructions on:
 ### 1. Python Environment and downloading assignment files
 Make a clone of this repository using GitHub Desktop and create a Python environment using a *.yaml-file to prevent dependencies issues.
 
-1. #### GitHub Desktop client
+#### 1. GitHub Desktop client
 
 By these steps, the files that are hosted at GitHub are "pulled" to your machine:
 * 1.1 Download GitHub Desktop via (https://desktop.github.com/) and install on your computer.
 * 1.2 Browse to (https://github.com/vtmvanzelst/BwNCodebook), click on the green "Code"
    		button and select "Open with GitHub Desktop", or paste the URL into the GitHub client.
 
-2. #### Mamba package manager
+#### 2. Mamba package manager
 
 If you're not familiar with managing Python environments, please have a look at this
 [introduction](https://earth-env-data-science.github.io/lectures/environment/python_environments.html?highlight=conda)
@@ -33,13 +33,13 @@ to avoid dependency conflicts.
 
 Continue with installing a package manager (here we use Mambaforge):
 
-#### Windows
+**Windows**
 [Mambaforge](https://mamba.readthedocs.io/en/latest/installation.html)
 	
 Download the mambaforge executable file for Windows from [Miniforge GitHub page](https://github.com/conda-forge/miniforge#mambaforge). On that page there are also binaries for Mac and Linux; and for `conda` package managers, so make sure you download
 the `mambaforge` executable file for Windows. Install the executable by clicking on it; you can stay with the default settings by just clicking next through the installation client.
 
-#### Mac and Linux
+**Mac and Linux**
 1. We recommend to install Mambaforge on Linux and Mac using a terminal. On Mac, you can
 	   open a terminal by searching for "terminal" or "iterm". On Linux the hotkey to open a
 	   terminal is "cntrl + shift + t". The commands to
@@ -50,12 +50,12 @@ the `mambaforge` executable file for Windows. Install the executable by clicking
 	   bash Mambaforge-$(uname)-$(uname -m).sh
 	
 	   ```
-	2. Accept the user agreements, and allow the installation script to edit your profile
+2. Accept the user agreements, and allow the installation script to edit your profile
 	   file. The profile file (`~/.bashrc` on Linux or possibly `~/.zshrc` on Mac) is the
 	   first script which is being executed when you open a new terminal. The installation
 	   script will add a few lines to that file to make the `mamba` command available every
 	   time open a new terminal. 
-	3. Close the terminal.
+3. Close the terminal.
 
 
 ### 2. XBeach
