@@ -34,9 +34,7 @@ to avoid dependency conflicts.
 Continue with installing a package manager (here we use Mambaforge):
 
 #### Windows
-[Mambaforge](https://mamba.readthedocs.io/en/latest/installation.html)
-	
-Download the mambaforge executable file for Windows from [Miniforge GitHub page](https://github.com/conda-forge/miniforge#mambaforge). On that page there are also binaries for Mac and Linux; and for `conda` package managers, so make sure you download
+1. Download the [Mambaforge](https://mamba.readthedocs.io/en/latest/installation.html) executable file for Windows from [Miniforge GitHub page](https://github.com/conda-forge/miniforge#mambaforge). On that page there are also binaries for Mac and Linux; and for `conda` package managers, so make sure you download
 the `mambaforge` executable file for Windows. Install the executable by clicking on it; you can stay with the default settings by just clicking next through the installation client.
 
 #### Mac and Linux
