@@ -14,9 +14,13 @@ Below we provide instructions on:
 3. Provided Python scripts
 
 
-### 1. Python Environment
+### 1. Python Environment and downloading assignment files
+Make a clone of this repository using GitHub Desktop and create a Python environment using a *.yaml-file to prevent dependencies issues.
 
-tekst
+1. **GitHub Desktop client**
+	1.1 Download GitHub Desktop via (https://desktop.github.com/) and install on your computer.
+	1.2 Browse to (https://github.com/vtmvanzelst/BwNCodebook), click on the green "Code"
+   		button and select "Open with GitHub Desktop", or paste the URL into the GitHub client.
 
 
 ### 2. XBeach
