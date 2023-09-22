@@ -1,6 +1,6 @@
 ![](https://github.com/vtmvanzelst/BwNCodebook/blob/main/imgs/saltmarsh.PNG)
 
-# BwNCodebook
+# BwN Codebook
  Supporting software for Delft University of Technology Building with Nature course.
 
 
@@ -78,29 +78,21 @@ environments.
    where you cloned the GitHub CoastalCodeBook repository. You can navigate the terminal
    using `cd`, which stands for "change directory". 
    - **Windows**: if you are on Windows and you installed the GitHub client using their default settings you can
-   simply run `cd %userprofile%\Documents\GitHub\CoastalCodeBook`. 
+   simply run `cd %userprofile%\Documents\GitHub\BwNCodeBook`. 
    - **Linux/Mac**: change to the directory where you cloned the GitHub repository. This
      will be something like `cd ~/path/to/github/repository`. 
-4. The CoastalCodeBook root directory contains two yaml files, that describe the software
-   dependencies. The first one, [environment-jupyterlab.yml](environment-coastal.yml)
-   contains some packages and several extensions to build an interactive Jupyter
-   environment. The other one, [environment-coastal.yml](environment-coastal.yml), is a
-   specification for required software that we will use in the tutorial notebooks. First
-   create a Jupyterlab environment by running: 
-   
-   ```bash
-   mamba env create -f environment-jupyterlab.yml
-   ```
+4. The BwNCodebook root directory contains a yaml file:, (that describe the software
+   dependencies). 
 
-   And then create the coastal environment by running: 
+   ```
+   Create the BwN environment by running: 
    ``` 
    mamba env create -f environment-coastal.yml
    ``` 
-   Depending on whether this is the first time to install this kind of software on your
-   machine, this might take a few minutes to complete. If you want to give other names to
+   If you want to give other names to
    the environments you can do so by adding a `-n` or `--name` flag, i.e., 
    ```bash
-   mamba env create -n testenv -f environment-jupyterlab.yml
+   mamba env create -n type_here_your_own_name -f environment-jupyterlab.yml
    ``` 
 
 
