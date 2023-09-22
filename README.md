@@ -56,20 +56,6 @@ the `mambaforge` executable file for Windows. Install the executable by clicking
 
 
 ### 3. Create Python Environment
-
-
-
-## XBeach
-XBeach is a two-dimensional model for wave propagation, long waves and mean flow, sediment transport and morphological change on the coastal nearshore area (Roelvink et al., 2009). 
-It includes a vegetation module that solves short-wave and long-wave -vegetation interaction (Van Rooijen et al., 2015; Van Rooijen et al., 2016). 
-
-* XBeach software can be downloaded at: 	(https://download.deltares.nl/xbeach)
-
-* XBeach manual:				(https://xbeach.readthedocs.io/en/latest/xbeach_manual.html)
-
-
-
-## Python scripts
 Now that we have our package manager we will create the software
 environments. 
 
@@ -116,6 +102,20 @@ environments.
    ```bash
    mamba env create -n testenv -f environment-jupyterlab.yml
    ``` 
+
+
+## XBeach
+XBeach is a two-dimensional model for wave propagation, long waves and mean flow, sediment transport and morphological change on the coastal nearshore area (Roelvink et al., 2009). 
+It includes a vegetation module that solves short-wave and long-wave -vegetation interaction (Van Rooijen et al., 2015; Van Rooijen et al., 2016). 
+
+* XBeach software can be downloaded at: 	(https://download.deltares.nl/xbeach)
+
+* XBeach manual:				(https://xbeach.readthedocs.io/en/latest/xbeach_manual.html)
+
+
+
+## Python scripts
+
 
 
 
