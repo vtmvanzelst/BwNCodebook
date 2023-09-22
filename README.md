@@ -105,10 +105,15 @@ It includes a vegetation module that solves short-wave and long-wave -vegetation
 
 * XBeach manual:				(https://xbeach.readthedocs.io/en/latest/xbeach_manual.html)
 
+If multiple XBeach versions are downloaded. This assignment is tested for **2018-11-09_XBeach_v1.23.5527_XBeachX_x64_netcdf**.
+Extract the files into '..\GitHub\BwNCodebook\00_XB_software\'
+
 
 
 ## Python scripts
-
+The folder **03_scripts** contains two scripts:
+1.  XB_script_assignment3.py  (contains the main function execute support functions to  setup, run and postprocess simulations)
+2.  support_funcs.XB_func.py  (support functions)
 
 
 
