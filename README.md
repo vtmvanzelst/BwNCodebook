@@ -10,13 +10,13 @@ For the design assignment we are making use of the hydrodynamic numerical model 
 These scripts provide some basic functionality. Feel challenged to adapt/develop these scripts to retrieve better system understanding. 
 Below we provide instructions on:
 1. [Download and installation of Python Enviroment](https://github.com/vtmvanzelst/BwNCodebook#python-environment-and-downloading-assignment-files)
-2. [Downland and use of XBeach](https://github.com/vtmvanzelst/BwNCodebook#xbeach)
+2. [Download and use of XBeach](https://github.com/vtmvanzelst/BwNCodebook#xbeach)
 3. [Provided Python scripts](https://github.com/vtmvanzelst/BwNCodebook#python-scripts)
 
 The first step is based on the installation for the **Coastal Systems course**. If you already installed this Python environment, you can partly skip this step.
 
 ## Python Environment and downloading assignment files
-Make a clone of this repository using GitHub Desktop and create a Python environment using a *.yaml-file to prevent dependencies issues.
+Make a clone of this repository using GitHub Desktop and create a Python environment using a *.yaml-file to prevent dependencies issues by following the steps below.
 
 ### 1. GitHub Desktop client
 
