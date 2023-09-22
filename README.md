@@ -48,7 +48,6 @@ the `mambaforge` executable file for Windows. Install the executable by clicking
 	   ```bash
 	   curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
 	   bash Mambaforge-$(uname)-$(uname -m).sh
-	
 	   ```
 2. Accept the user agreements, and allow the installation script to edit your profile
 	   file. The profile file (`~/.bashrc` on Linux or possibly `~/.zshrc` on Mac) is the
