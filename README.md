@@ -39,6 +39,9 @@ Continue with installing a package manager (here we use Mambaforge):
 the `mambaforge` executable file for Windows. Install the executable by clicking on it; you can stay with the default settings by just clicking next through the installation client.
 
 #### Mac and Linux
+
+** We did not test XBeach on Mac. You can pre-process and post-process data in Python on your Mac, but we do not provide instructions on how to run XBeach on Mac.**
+
 1. We recommend to install Mambaforge on Linux and Mac using a terminal. On Mac, you can
 	   open a terminal by searching for "terminal" or "iterm". On Linux the hotkey to open a
 	   terminal is "cntrl + shift + t". The commands to
