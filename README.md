@@ -13,6 +13,7 @@ Below we provide instructions on:
 2. Downland and use of XBeach
 3. Provided Python scripts
 
+The first step is based on the installation for the **Coastal Systems course**. If you already installed this Python environment, you can directly continue to step 2.
 
 ## Python Environment and downloading assignment files
 Make a clone of this repository using GitHub Desktop and create a Python environment using a *.yaml-file to prevent dependencies issues.
@@ -81,7 +82,7 @@ environments.
    simply run `cd %userprofile%\Documents\GitHub\BwNCodeBook`. 
    - **Linux/Mac**: change to the directory where you cloned the GitHub repository. This
      will be something like `cd ~/path/to/github/repository`. 
-4. The BwNCodebook root directory contains a yaml file:, (that describe the software
+4. The BwNCodebook root directory contains a yaml file: environment-coastal.yml, (that describes the software
    dependencies). 
 
    
@@ -92,7 +93,7 @@ environments.
    If you want to give other names to
    the environments you can do so by adding a `-n` or `--name` flag, i.e., 
    ```bash
-   mamba env create -n type_here_your_own_name -f environment-jupyterlab.yml
+   mamba env create -n type_here_your_own_name -f environment-coastal.yml
    ``` 
 
 
