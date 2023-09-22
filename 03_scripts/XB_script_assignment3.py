@@ -17,6 +17,7 @@ import pandas as pd
 import pickle
 from pylab import plot, show, savefig, xlim, figure, ylim, legend, boxplot, setp, axes
 import shutil
+import subprocess
 import xarray as xr
 # import subprocess  # only needed if you would like to start the simulations via a python script. 
 
@@ -144,7 +145,7 @@ def XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp):                     
 #=============================================================================
 # 0. Create working dir, select a trnsect and provide hydro input.
 # main_dir = r'ENTER-HERE-THE-PATH-TO-THE-FOLDER\Assignment_3_material'
-main_dir = r'p:\11209193-vincarr\12_education\2023_BwN\Assignment_3_material'
+main_dir = r'c:\Users\zelst\OneDrive - Stichting Deltares\Documents\GitHub\BwNCodebook'
 wd       = join(main_dir,r'02_XB_sims\01_dummy_t1')
 check_dir(wd)
 
@@ -211,8 +212,16 @@ XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp)
 #=============================================================================
 # 3. Start simulation
 # copy bat file to simulation folder
-shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),join(wd,'run_xb.bat'))
+fn_bat = join(wd,'run_xb.bat')
+shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),fn_bat)
+
+
+#%%
 # Start the XB simulation by running: 'run_xb.bat'
+log_xbeach = subprocess.run(fn_bat, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+
+
 
 #%%
 
