@@ -55,20 +55,67 @@ the `mambaforge` executable file for Windows. Install the executable by clicking
 3. Close the terminal.
 
 
+### 3. Create Python Environment
+
+
+
 ## XBeach
 XBeach is a two-dimensional model for wave propagation, long waves and mean flow, sediment transport and morphological change on the coastal nearshore area (Roelvink et al., 2009). 
 It includes a vegetation module that solves short-wave and long-wave -vegetation interaction (Van Rooijen et al., 2015; Van Rooijen et al., 2016). 
 
-XBeach software can be downloaded at: 	(https://download.deltares.nl/xbeach)
+* XBeach software can be downloaded at: 	(https://download.deltares.nl/xbeach)
 
-XBeach manual:				(https://xbeach.readthedocs.io/en/latest/xbeach_manual.html)
+* XBeach manual:				(https://xbeach.readthedocs.io/en/latest/xbeach_manual.html)
 
 
 
 ## Python scripts
+Now that we have our package manager we will create the software
+environments. 
 
+1. Now that mambaforge is available on your machine, open a terminal. On Windows you
+   should open the Miniforge prompt, which you can find by searching for it in the Start
+   window. On Mac you can open a terminal by searching for "terminal" or "iterm". For
+   Linux it's "cntrl + shift + t". 
+2. You can check if mamba was installed by running the following command in the terminal: 
+   ```bash 
+   mamba --version
+   ```` 
+   It should output something like: 
 
+   ```console
+   ~ base ? mamba --version
+   mamba 1.1.0
+   conda 22.9.0
+   ```
+3. Now that mambaforge is installed, navigate in the terminal to the directory
+   where you cloned the GitHub CoastalCodeBook repository. You can navigate the terminal
+   using `cd`, which stands for "change directory". 
+   - **Windows**: if you are on Windows and you installed the GitHub client using their default settings you can
+   simply run `cd %userprofile%\Documents\GitHub\CoastalCodeBook`. 
+   - **Linux/Mac**: change to the directory where you cloned the GitHub repository. This
+     will be something like `cd ~/path/to/github/repository`. 
+4. The CoastalCodeBook root directory contains two yaml files, that describe the software
+   dependencies. The first one, [environment-jupyterlab.yml](environment-coastal.yml)
+   contains some packages and several extensions to build an interactive Jupyter
+   environment. The other one, [environment-coastal.yml](environment-coastal.yml), is a
+   specification for required software that we will use in the tutorial notebooks. First
+   create a Jupyterlab environment by running: 
+   
+   ```bash
+   mamba env create -f environment-jupyterlab.yml
+   ```
 
+   And then create the coastal environment by running: 
+   ``` 
+   mamba env create -f environment-coastal.yml
+   ``` 
+   Depending on whether this is the first time to install this kind of software on your
+   machine, this might take a few minutes to complete. If you want to give other names to
+   the environments you can do so by adding a `-n` or `--name` flag, i.e., 
+   ```bash
+   mamba env create -n testenv -f environment-jupyterlab.yml
+   ``` 
 
 
 
