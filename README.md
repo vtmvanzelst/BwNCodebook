@@ -17,7 +17,7 @@ Below we provide instructions on:
 ### 1. Python Environment and downloading assignment files
 Make a clone of this repository using GitHub Desktop and create a Python environment using a *.yaml-file to prevent dependencies issues.
 
-1. **GitHub Desktop client**
+1. #### GitHub Desktop client
 
 By these steps, the files that are hosted at GitHub are "pulled" to your machine:
 
@@ -26,7 +26,7 @@ By these steps, the files that are hosted at GitHub are "pulled" to your machine
 1.2 Browse to (https://github.com/vtmvanzelst/BwNCodebook), click on the green "Code"
    		button and select "Open with GitHub Desktop", or paste the URL into the GitHub client.
 
-2. **Mamba package manager**
+2. #### Mamba package manager
 
 If you're not familiar with managing Python environments, please have a look at this
 [introduction](https://earth-env-data-science.github.io/lectures/environment/python_environments.html?highlight=conda)
