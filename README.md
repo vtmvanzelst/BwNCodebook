@@ -21,9 +21,9 @@ Make a clone of this repository using GitHub Desktop and create a Python environ
 
 By these steps, the files that are hosted at GitHub are "pulled" to your machine:
 
-	1.1 Download GitHub Desktop via (https://desktop.github.com/) and install on your computer.
+1.1 Download GitHub Desktop via (https://desktop.github.com/) and install on your computer.
 	
-	1.2 Browse to (https://github.com/vtmvanzelst/BwNCodebook), click on the green "Code"
+1.2 Browse to (https://github.com/vtmvanzelst/BwNCodebook), click on the green "Code"
    		button and select "Open with GitHub Desktop", or paste the URL into the GitHub client.
 
 2. **Mamba package manager**
