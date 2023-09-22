@@ -1,0 +1,1 @@
+Copy your downloaded XBeach software in this folder
