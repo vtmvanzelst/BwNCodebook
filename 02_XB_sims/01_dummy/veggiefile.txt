@@ -1,1 +1,0 @@
-vegtype_dummy.txt

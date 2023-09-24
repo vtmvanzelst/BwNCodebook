@@ -23,7 +23,7 @@ import sys
 
 
 # local funcs
-from support_funcs.XB_func import XB_plot_val, XB_plot_dif_val, XBparams_sb, XB_load_results, write_xb_hydrodynamics
+from support_funcs.XB_func import XB_plot_val, XB_plot_dif_val, XBparams_sb, XB_load_results, write_xb_hydrodynamics, XBwriteveg
 
 def to_pickle(fn_pickle, df):
 	file = open(fn_pickle,'wb')
@@ -57,6 +57,7 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
          zs0: float            = 3.5,
          Hm0:float             = 1.25,
          fp:float              = 1/4.5,
+         d_veg:dict            = {},
          opt_prepare_and_run_xb= True,
          opt_postprocessing    = True):
     
@@ -93,6 +94,7 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
     dirs      = [dir_noveg, dir_veg]
 
 
+    # PREPARE AND RUN XB
     if opt_prepare_and_run_xb == True:   
         # in the working directory we create two folders (veg and noveg)
         check_dir(wd);check_dir(dir_noveg);check_dir(dir_veg)
@@ -126,14 +128,10 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
         #        4. 'vegetation' = 1 keyword in the params file (set vegetation = 0 to turn off the vegetation module)
         #
         #     For detailed information visit: https://xbeach.readthedocs.io/en/latest/xbeach_manual.html#vegetation-input
-
-        # copy veggiefile and vegtype_dummy to working dir
-        for wd_sel in dirs:
-            shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/veggiefile.txt'),join(wd_sel,'veggiefile.txt'))
-            shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/vegtype_dummy.txt'),join(wd_sel,'vegtype_dummy.txt'))
-        # Manually make change to these files to provide the model with your own vegetation parameterization!  
-      
         
+        # writing vegetation characteristics to file
+        for wd_sel in dirs:
+            XBwriteveg(wd_sel, d_veg)
       
         # execute simulation
         for wd_sel in dirs:
@@ -142,6 +140,7 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
         subprocess.run(join(dir_noveg,'run_xb.bat'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) 
         
   
+    # POST-PROCESSING
     if opt_postprocessing == True:
         opt = check_dir_plot(join(dir_veg, 'xboutput.nc'))
         
@@ -164,35 +163,44 @@ if __name__ == '__main__':
     # =========================================================================
     # directory input
     main_dir             = r'c:\Users\zelst\OneDrive - Stichting Deltares\Documents\GitHub\BwNCodebook'
-    simulation_name      = 'test01'
+    simulation_name      = 'Transect3_test'
     
     # transect (1,2 or 3)
-    selected_transect    = 1
+    selected_transect    = 3
     
     # hydrodynamic input
     zs0                  = 3.5        # design storm water level in meters (vertical reference frame according to the *.dep-file)
     Hm0                  = 1.25       # significant wave height
     fp                   = 1/4.5      # peak frequency (= 1 / Tp)
     
+    # vegetation input
+    name_v  = 'saltmarsh1'            # vegetation name (for your own administration) 
+    hv      = 0.3                     # vegetation height  [m]
+    bv      = 0.005                   # representative diameter [m]
+    nv      = 100                     # vegetation density [1/m2]
+    cd      = 0.5                     # drag coeficient [-]
+    
     # options to run and/or postprocess
-    opt_prepare_and_run_xb = False
+    opt_prepare_and_run_xb = True
     opt_postprocessing     = True
     # =========================================================================
     # END USER INPUT
     
     
+    
     # no changes required below
+    d_veg = {'name_v':name_v, 'hv':hv,
+             'bv':bv,'nv':nv,'cd':cd}
+    
     main(main_dir          = main_dir, 
          simulation_name   = simulation_name, 
          selected_transect = selected_transect,
          zs0               = zs0,
          Hm0               = Hm0,
          fp                = fp,
+         d_veg             = d_veg, 
          opt_prepare_and_run_xb = opt_prepare_and_run_xb,
          opt_postprocessing     = opt_postprocessing)
-
-
-
 
 
 

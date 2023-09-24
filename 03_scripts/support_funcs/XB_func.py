@@ -181,6 +181,28 @@ def XBjonswap(XB_templatefiledir, XB_outputfiledir,Hm0,fp):                     
     fin.close()
     fout.close()
 
+
+
+def XBwriteveg(XB_sim_dir, d_veg):
+    XB_veggiefile  = os.path.join(XB_sim_dir, 'veggiefile.txt');         # hold veg name
+    XB_vegtypefile = os.path.join(XB_sim_dir, d_veg['name_v'] + '.txt'); # hold veg parameters
+
+    # write veggiefile
+    fout = open(XB_veggiefile, 'w')
+    fout.write(d_veg['name_v'] +  '.txt\n')
+    fout.close()
+
+    # write vegtypefile
+    fout = open(XB_vegtypefile, 'w')
+    fout.write('nsec = 1\n')
+    fout.write('ah = ' + str(d_veg['hv']) + '\n')
+    fout.write('bv = ' + str(d_veg['bv'])+ '\n')
+    fout.write('N = ' + str(d_veg['nv'])+ '\n')
+    fout.write('Cd = ' + str(d_veg['cd'])+ '\n')
+    fout.close()
+
+
+
 def write_xb_hydrodynamics(xgrid, main_dir, wd, zs0, Hm0, fp):
     nxb = len(xgrid)-1 # number of xgrid cells
     XB_templatefiledir = join(main_dir,'02_XB_sims/00_dummy_input_xbfiles')
