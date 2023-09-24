@@ -7,7 +7,7 @@
   **********************************************************
  
   Simulation started: YYYYMMDD    hh:mm:ss     time zone (UTC)
-                      20230924  15:04:26     +0200
+                      20230924  15:28:31     +0200
  
   General Input Module
   Reading input parameters:
@@ -395,22 +395,22 @@
  Calculating wave energy envelope at boundary.
   100.0% done
   Wave bin1 contains.00% of total energy
-  Wave bin2 contains.05% of total energy
-  Wave bin3 contains.49% of total energy
-  Wave bin4 contains1.38% of total energy
-  Wave bin5 contains3.84% of total energy
-  Wave bin6 contains7.60% of total energy
-  Wave bin7 contains10.91% of total energy
-  Wave bin8 contains12.14% of total energy
-  Wave bin9 contains13.39% of total energy
-  Wave bin10 contains17.04% of total energy
-  Wave bin11 contains13.57% of total energy
-  Wave bin12 contains10.83% of total energy
-  Wave bin13 contains4.42% of total energy
-  Wave bin14 contains2.96% of total energy
-  Wave bin15 contains1.14% of total energy
-  Wave bin16 contains.25% of total energy
-  Wave bin17 contains.00% of total energy
+  Wave bin2 contains.18% of total energy
+  Wave bin3 contains.10% of total energy
+  Wave bin4 contains2.20% of total energy
+  Wave bin5 contains2.00% of total energy
+  Wave bin6 contains7.82% of total energy
+  Wave bin7 contains12.39% of total energy
+  Wave bin8 contains15.27% of total energy
+  Wave bin9 contains14.73% of total energy
+  Wave bin10 contains12.68% of total energy
+  Wave bin11 contains14.87% of total energy
+  Wave bin12 contains7.62% of total energy
+  Wave bin13 contains5.44% of total energy
+  Wave bin14 contains2.99% of total energy
+  Wave bin15 contains.60% of total energy
+  Wave bin16 contains.54% of total energy
+  Wave bin17 contains.57% of total energy
   Wave bin18 contains.00% of total energy
    Writing wave energy toE_reuse.bcf ...
   file done
@@ -443,24 +443,22 @@
   Spectral wave boundary conditions complete
   --------------------------------
   Boundary conditions complete, starting computation
-  Simulation  6.2 percent complete. Average dt  0.310 seconds
-  Time remaining  1 minutes and 16 seconds
-  Simulation 19.9 percent complete. Average dt  0.309 seconds
+  Simulation  8.0 percent complete. Average dt  0.310 seconds
+  Time remaining 57 seconds
+  Simulation 20.7 percent complete. Average dt  0.309 seconds
   Time remaining 35 seconds
-  Simulation 32.6 percent complete. Average dt  0.309 seconds
-  Time remaining 29 seconds
-  Simulation 46.0 percent complete. Average dt  0.303 seconds
-  Time remaining 22 seconds
-  Simulation 59.6 percent complete. Average dt  0.303 seconds
+  Simulation 34.5 percent complete. Average dt  0.308 seconds
+  Time remaining 26 seconds
+  Simulation 48.2 percent complete. Average dt  0.303 seconds
+  Time remaining 20 seconds
+  Simulation 60.5 percent complete. Average dt  0.303 seconds
   Time remaining 16 seconds
-  Simulation 71.1 percent complete. Average dt  0.303 seconds
-  Time remaining 12 seconds
-  Simulation 84.2 percent complete. Average dt  0.303 seconds
-  Time remaining  6 seconds
-  Simulation 98.1 percent complete. Average dt  0.303 seconds
-  Time remaining  1 seconds
-   Duration   :   39.6718750000000      seconds
+  Simulation 74.6 percent complete. Average dt  0.303 seconds
+  Time remaining 10 seconds
+  Simulation 88.7 percent complete. Average dt  0.303 seconds
+  Time remaining  4 seconds
+   Duration   :   38.7500000000000      seconds
    Timesteps  :        8849
    Average dt :  0.305119222511018      seconds
-   Unit speed :  7.116197328368195E-006 seconds/1
+   Unit speed :  6.950834727984688E-006 seconds/1
   End of program xbeach

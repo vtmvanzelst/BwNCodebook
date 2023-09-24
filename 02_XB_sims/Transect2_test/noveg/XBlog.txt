@@ -7,7 +7,7 @@
   **********************************************************
  
   Simulation started: YYYYMMDD    hh:mm:ss     time zone (UTC)
-                      20230924  15:06:27     +0200
+                      20230924  15:32:34     +0200
  
   General Input Module
   Reading input parameters:
@@ -373,7 +373,7 @@
   90.1% done
   95.0% done
   100.0% done
-  Wave energy outside computational domain at offshore boundary:.2%
+  Wave energy outside computational domain at offshore boundary:.0%
   Calculating short wave time series for theta bin1 of18
   Calculating short wave time series for theta bin2 of18
   Calculating short wave time series for theta bin3 of18
@@ -396,21 +396,21 @@
   100.0% done
   Wave bin1 contains.00% of total energy
   Wave bin2 contains.00% of total energy
-  Wave bin3 contains.19% of total energy
-  Wave bin4 contains.55% of total energy
-  Wave bin5 contains2.94% of total energy
-  Wave bin6 contains8.70% of total energy
-  Wave bin7 contains8.40% of total energy
-  Wave bin8 contains15.60% of total energy
-  Wave bin9 contains16.07% of total energy
-  Wave bin10 contains14.54% of total energy
-  Wave bin11 contains13.68% of total energy
-  Wave bin12 contains8.60% of total energy
-  Wave bin13 contains7.42% of total energy
-  Wave bin14 contains1.49% of total energy
-  Wave bin15 contains.34% of total energy
-  Wave bin16 contains1.17% of total energy
-  Wave bin17 contains.32% of total energy
+  Wave bin3 contains.53% of total energy
+  Wave bin4 contains1.33% of total energy
+  Wave bin5 contains3.90% of total energy
+  Wave bin6 contains6.89% of total energy
+  Wave bin7 contains5.93% of total energy
+  Wave bin8 contains11.16% of total energy
+  Wave bin9 contains15.66% of total energy
+  Wave bin10 contains20.28% of total energy
+  Wave bin11 contains13.43% of total energy
+  Wave bin12 contains9.37% of total energy
+  Wave bin13 contains5.48% of total energy
+  Wave bin14 contains4.11% of total energy
+  Wave bin15 contains.90% of total energy
+  Wave bin16 contains.61% of total energy
+  Wave bin17 contains.41% of total energy
   Wave bin18 contains.00% of total energy
    Writing wave energy toE_reuse.bcf ...
   file done
@@ -443,20 +443,18 @@
   Spectral wave boundary conditions complete
   --------------------------------
   Boundary conditions complete, starting computation
-  Simulation 11.4 percent complete. Average dt  0.415 seconds
-  Time remaining 39 seconds
-  Simulation 31.9 percent complete. Average dt  0.414 seconds
-  Time remaining 19 seconds
-  Simulation 48.5 percent complete. Average dt  0.401 seconds
-  Time remaining 16 seconds
-  Simulation 68.0 percent complete. Average dt  0.400 seconds
-  Time remaining  9 seconds
-  Simulation 85.5 percent complete. Average dt  0.400 seconds
-  Time remaining  4 seconds
-  Simulation 99.4 percent complete. Average dt  0.400 seconds
-  Time remaining  0 seconds
-   Duration   :   28.9218750000000      seconds
+  Simulation 12.5 percent complete. Average dt  0.415 seconds
+  Time remaining 35 seconds
+  Simulation 37.2 percent complete. Average dt  0.412 seconds
+  Time remaining 15 seconds
+  Simulation 57.5 percent complete. Average dt  0.400 seconds
+  Time remaining 11 seconds
+  Simulation 76.4 percent complete. Average dt  0.400 seconds
+  Time remaining  6 seconds
+  Simulation 95.6 percent complete. Average dt  0.400 seconds
+  Time remaining  1 seconds
+   Duration   :   26.1093750000000      seconds
    Timesteps  :        6672
    Average dt :  0.404676258992806      seconds
-   Unit speed :  8.256787427201097E-006 seconds/1
+   Unit speed :  7.453858341897910E-006 seconds/1
   End of program xbeach

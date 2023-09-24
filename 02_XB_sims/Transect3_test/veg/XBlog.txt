@@ -7,7 +7,7 @@
   **********************************************************
  
   Simulation started: YYYYMMDD    hh:mm:ss     time zone (UTC)
-                      20230924  15:08:11     +0200
+                      20230924  15:33:19     +0200
  
   General Input Module
   Reading input parameters:
@@ -394,23 +394,23 @@
   Calculating short wave time series for theta bin18 of18
  Calculating wave energy envelope at boundary.
   100.0% done
-  Wave bin1 contains.00% of total energy
-  Wave bin2 contains.06% of total energy
-  Wave bin3 contains.78% of total energy
-  Wave bin4 contains1.04% of total energy
-  Wave bin5 contains4.63% of total energy
-  Wave bin6 contains4.59% of total energy
-  Wave bin7 contains10.89% of total energy
-  Wave bin8 contains12.42% of total energy
-  Wave bin9 contains12.48% of total energy
-  Wave bin10 contains16.53% of total energy
-  Wave bin11 contains11.83% of total energy
-  Wave bin12 contains9.81% of total energy
-  Wave bin13 contains9.07% of total energy
-  Wave bin14 contains2.02% of total energy
-  Wave bin15 contains2.19% of total energy
-  Wave bin16 contains1.16% of total energy
-  Wave bin17 contains.51% of total energy
+  Wave bin1 contains.35% of total energy
+  Wave bin2 contains.05% of total energy
+  Wave bin3 contains.23% of total energy
+  Wave bin4 contains1.71% of total energy
+  Wave bin5 contains7.15% of total energy
+  Wave bin6 contains2.92% of total energy
+  Wave bin7 contains7.01% of total energy
+  Wave bin8 contains14.44% of total energy
+  Wave bin9 contains15.81% of total energy
+  Wave bin10 contains16.56% of total energy
+  Wave bin11 contains12.14% of total energy
+  Wave bin12 contains9.91% of total energy
+  Wave bin13 contains5.09% of total energy
+  Wave bin14 contains4.58% of total energy
+  Wave bin15 contains1.52% of total energy
+  Wave bin16 contains.08% of total energy
+  Wave bin17 contains.46% of total energy
   Wave bin18 contains.00% of total energy
    Writing wave energy toE_reuse.bcf ...
   file done
@@ -443,22 +443,20 @@
   Spectral wave boundary conditions complete
   --------------------------------
   Boundary conditions complete, starting computation
-  Simulation 12.2 percent complete. Average dt  0.436 seconds
-  Time remaining 36 seconds
-  Simulation 36.0 percent complete. Average dt  0.436 seconds
-  Time remaining 16 seconds
-  Simulation 52.1 percent complete. Average dt  0.330 seconds
+  Simulation  8.6 percent complete. Average dt  0.436 seconds
+  Time remaining 53 seconds
+  Simulation 32.8 percent complete. Average dt  0.436 seconds
+  Time remaining 17 seconds
+  Simulation 50.8 percent complete. Average dt  0.363 seconds
   Time remaining 14 seconds
-  Simulation 68.0 percent complete. Average dt  0.341 seconds
+  Simulation 66.9 percent complete. Average dt  0.346 seconds
   Time remaining 10 seconds
-  Simulation 76.7 percent complete. Average dt  0.328 seconds
-  Time remaining 11 seconds
-  Simulation 89.6 percent complete. Average dt  0.316 seconds
-  Time remaining  4 seconds
-  Simulation 99.7 percent complete. Average dt  0.313 seconds
-  Time remaining  0 seconds
-   Duration   :   31.9843750000000      seconds
-   Timesteps  :        7519
-   Average dt :  0.359090304561777      seconds
-   Unit speed :  7.462819337211228E-006 seconds/1
+  Simulation 80.8 percent complete. Average dt  0.313 seconds
+  Time remaining  6 seconds
+  Simulation 96.6 percent complete. Average dt  0.344 seconds
+  Time remaining  1 seconds
+   Duration   :   29.7500000000000      seconds
+   Timesteps  :        7303
+   Average dt :  0.369711077639326      seconds
+   Unit speed :  7.146786588544482E-006 seconds/1
   End of program xbeach
