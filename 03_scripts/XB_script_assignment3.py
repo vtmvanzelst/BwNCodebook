@@ -93,6 +93,11 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
     dir_veg   = join(wd,'veg'); 
     dirs      = [dir_noveg, dir_veg]
 
+    # check if xbeach.exe is placed in the correct folder:
+    if not os.path.exists(main_dir, '00_XB_software/xbeach.exe'):
+        raise FileNotFoundError('Please place the xbeach.exe file in the correct folder according to the instructions in the README file.')
+        
+
 
     # PREPARE AND RUN XB
     if opt_prepare_and_run_xb == True:   
