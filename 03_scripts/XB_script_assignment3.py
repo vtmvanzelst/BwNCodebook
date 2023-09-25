@@ -141,8 +141,8 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
         # execute simulation
         for wd_sel in dirs:
             shutil.copyfile(join(main_dir,'02_XB_sims/00_dummy_input_xbfiles/run_xb.bat'),join(wd_sel,'run_xb.bat'))             # copy bat file to simulation folder
-        subprocess.run(join(dir_veg,'run_xb.bat'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)     # Start the XB simulation by running: 'run_xb.bat'
-        subprocess.run(join(dir_noveg,'run_xb.bat'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) 
+        subprocess.run(join(dir_veg,'run_xb.bat'), shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)     # Start the XB simulation by running: 'run_xb.bat'
+        subprocess.run(join(dir_noveg,'run_xb.bat'), shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) 
         
   
     # POST-PROCESSING
