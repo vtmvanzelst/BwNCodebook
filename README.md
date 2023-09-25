@@ -47,7 +47,7 @@ the `mambaforge` executable file for Windows. Install the executable by clicking
 	   terminal is "cntrl + shift + t". The commands to
 	   install the package manager are copied from their documentation and can be run by
 	   copying the commands below over to your terminal and pressing enter:  
-	   ```bash
+	   ```
 	   curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
 	   bash Mambaforge-$(uname)-$(uname -m).sh
 	   ```
