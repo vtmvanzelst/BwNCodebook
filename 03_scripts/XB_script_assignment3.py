@@ -94,7 +94,7 @@ def main(main_dir:str          = 'path\to\BwNCodebook',
     dirs      = [dir_noveg, dir_veg]
 
     # check if xbeach.exe is placed in the correct folder:
-    if not os.path.exists(main_dir, '00_XB_software/xbeach.exe'):
+    if not os.path.exists(main_dir, '/00_XB_software/xbeach.exe'):
         raise FileNotFoundError('Please place the xbeach.exe file in the correct folder according to the instructions in the README file.')
         
 
