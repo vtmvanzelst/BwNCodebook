@@ -79,3 +79,4 @@ dependencies:
   - pooch
   - tqdm
   - spyder
+  - jupyter notebook
